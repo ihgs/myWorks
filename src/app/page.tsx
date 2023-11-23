@@ -4,7 +4,7 @@ import styles from './page.module.css'
 import { asClass, createContainer } from 'awilix'
 import { IndexedDb } from './libs/recorder/indexedDb'
 import WorkCard from './components/WorkCard'
-import { ContainerContext } from './base'
+import { ContainerContext } from './libs/recorder/base'
 
 export default function Home() {
   const container = createContainer()

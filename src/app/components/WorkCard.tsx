@@ -4,7 +4,7 @@ import { InjectionMode, asClass, createContainer } from "awilix";
 import { useContext, useEffect, useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form"
 import { Recorder } from "../interfaces";
-import { ContainerContext } from "../base";
+import { ContainerContext } from "../libs/recorder/base";
 
 
 

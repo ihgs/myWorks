@@ -4,7 +4,7 @@ import { expect } from '@storybook/jest';
 import WorkCard from '@/app/components/WorkCard';
 import { asClass, createContainer } from 'awilix';
 import { MemoryDB } from '@/app/libs/recorder/memory';
-import { ContainerContext } from '@/app/base';
+import { ContainerContext } from '@/app/libs/recorder/base';
 
 
 
