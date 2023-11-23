@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { within, userEvent, waitFor } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
-import WorkCard from '@/app/components/organisms/WorkCard';
+import WorkCard from '@/app/components/WorkCard';
 
 const meta = {
     title: 'WorkCard',
