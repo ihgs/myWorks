@@ -1,10 +1,19 @@
 import { Box, Button, Stack, TextField } from "@mui/material"
 import Grid from '@mui/material/Unstable_Grid2';
-import { useEffect, useState } from "react";
+import { InjectionMode, asClass, createContainer } from "awilix";
+import { useContext, useEffect, useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form"
+import { Recorder } from "../interfaces";
+import { ContainerContext } from "../base";
+
+
 
 function EditForm ({work, clickSave}: {work: Work, clickSave: any }) {
-    
+    const container = useContext(ContainerContext)
+    let recorder:any;
+    if(container){
+        recorder = container.resolve<Recorder>("recorder")
+    }
     const {
         control,
         handleSubmit,
@@ -24,7 +33,7 @@ function EditForm ({work, clickSave}: {work: Work, clickSave: any }) {
     }
 
     const onSubmit: SubmitHandler<Work> = (data: Work) => {
-        clickSave(data)
+        clickSave(recorder.save(data))
     }
 
     return (
@@ -106,7 +115,7 @@ function EditForm ({work, clickSave}: {work: Work, clickSave: any }) {
                         error={fieldState.invalid}
                         helperText={fieldState.error?.message}
                         multiline
-                        rows={10}
+                        minRows={3}
                     />
                 )}
             />
@@ -132,14 +141,14 @@ function Display ({work, clickEdit}: {work: Work, clickEdit: any}) {
         </Grid>
         {show && 
             <Grid container>
-                <Grid xs={12}>{work.comment}</Grid>
+                <Grid xs={12}><pre>{work.comment}</pre></Grid>
             </Grid>
         }
         </>
     )
 }
 
-export default function WorkCard ({work, edit=true}: {work: Work,edit?: boolean} ) {
+export default function WorkCard ({work, edit=false}: {work: Work,edit?: boolean} ) {
     const [data, setData] = useState<Work>(work)
     const [editMode, setEditMode] = useState<boolean>(edit)
 

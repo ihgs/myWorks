@@ -1,4 +1,5 @@
 interface Work {
+    id?: number
     year: number
     month: number
     day: number
@@ -7,4 +8,5 @@ interface Work {
     item?: string
     type?: string
     comment?: string
+    version: number
 }

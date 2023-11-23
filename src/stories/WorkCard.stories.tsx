@@ -2,6 +2,11 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { within, userEvent, waitFor } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 import WorkCard from '@/app/components/WorkCard';
+import { asClass, createContainer } from 'awilix';
+import { MemoryDB } from '@/app/libs/recorder/memory';
+import { ContainerContext } from '@/app/base';
+
+
 
 const meta = {
     title: 'WorkCard',
@@ -9,6 +14,18 @@ const meta = {
     parameters: {
 
     },
+    decorators: [
+        (Story) => {
+            const container = createContainer()
+            container.register({"recorder": asClass(MemoryDB).singleton()})
+
+            return (
+                <ContainerContext.Provider value={container}>
+                    <Story />
+                </ContainerContext.Provider>
+            )   
+        }
+    ],
     tags: ['autodoc']
 } satisfies Meta<typeof WorkCard>;
 
@@ -17,7 +34,8 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
     args: {
-        work: {year: 2023, month: 12, day: 1}
+        work: {year: 2023, month: 12, day: 1, version: 0},
+        edit: true
     }
 }
 
@@ -33,7 +51,8 @@ export const Display: Story = {
             end: "13:00",
             item: "test",
             type: "mode",
-            comment: "xxxxxxxxxxyyyyyyyyyyyxfhdiahfahfdiaphi"
+            comment: "xxxxxxxxxxyyyyyyyyyyyxfhdiahfahfdiaphi",
+            version: 1,
         },
         edit: false
     }
@@ -49,7 +68,8 @@ export const DisplayLongItem: Story = {
             end: "13:00",
             item: "tesfdahofihaoidfhaiohfoiahfodhfoahdfioaogjaoghoghaoirfhgoaihgioajdgoahrfiorhgaioaghoihgioft",
             type: "mode",
-            comment: "xxxxxxxxxxyyyyyyyyyyyxfhdiahfahfdiaphi"
+            comment: "xxxxxxxxxxyyyyyyyyyyyxfhdiahfahfdiaphi",
+            version: 1,
         },
         edit: false
     }
@@ -61,7 +81,8 @@ export const DisplayLongItem: Story = {
 
 export const Save: Story = {
     args: {
-        work: {year: 2023, month: 12, day: 1}
+        work: {year: 2023, month: 12, day: 1, version:1},
+        edit: true
     },
     play: async ({canvasElement}) => {
         const canvas = within(canvasElement)
