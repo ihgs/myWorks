@@ -17,6 +17,6 @@ export const Default: Story = {
         year: 2023,
         month: 12,
         day: 1,
-        onChange: (year, month, day)=>console.log(`${year}/${month}/${day}`)
+        onChange: ({year, month, day})=>console.log(`${year}/${month}/${day}`)
     },
 }

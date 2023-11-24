@@ -5,6 +5,7 @@ import WorkCard from '@/app/components/WorkCard';
 import { asClass, createContainer } from 'awilix';
 import { MemoryDB } from '@/app/libs/recorder/memory';
 import { ContainerContext } from '@/app/libs/recorder/base';
+import { RecoilRoot } from 'recoil';
 
 
 
@@ -20,9 +21,11 @@ const meta = {
             container.register({"recorder": asClass(MemoryDB).singleton()})
 
             return (
-                <ContainerContext.Provider value={container}>
-                    <Story />
-                </ContainerContext.Provider>
+                <RecoilRoot>
+                    <ContainerContext.Provider value={container}>
+                        <Story />
+                    </ContainerContext.Provider>
+                </RecoilRoot>
             )   
         }
     ],

@@ -1,12 +1,13 @@
 import { DesktopDatePicker, LocalizationProvider, PickerChangeHandlerContext } from "@mui/x-date-pickers"
 import dayjs from 'dayjs'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { DateInterface } from "./WorkCards"
 
 interface DateSelectorProps{
     year?: number
     month?: number
     day?: number
-    onChange: (year:number, month:number, day:number) => void
+    onChange: (date: DateInterface) => void
 }
 
 const today = dayjs()
@@ -14,7 +15,7 @@ const today = dayjs()
 export function DateSelector({year=today.year(), month=today.month()+1, day=today.date(), onChange}: DateSelectorProps){
 
     const handleChange = (newValue: any) => {
-        onChange(newValue.year(), newValue.month()+1, newValue.date())
+        onChange({year: newValue.year(), month: newValue.month()+1, day: newValue.date()})
     }
 
     return (

@@ -5,11 +5,16 @@ import { useContext, useEffect, useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form"
 import { Recorder } from "../interfaces";
 import { ContainerContext } from "../libs/recorder/base";
+import { useRecoilState } from "recoil";
+import { workListState } from "../libs/atoms/workList-state";
 
 
 
 function EditForm ({work, clickSave}: {work: Work, clickSave: any }) {
     const container = useContext(ContainerContext)
+
+    const [workList,setWorkList] = useRecoilState<Work[]>(workListState)
+
     let recorder:any;
     if(container){
         recorder = container.resolve<Recorder>("recorder")
@@ -19,6 +24,11 @@ function EditForm ({work, clickSave}: {work: Work, clickSave: any }) {
         handleSubmit,
     } = useForm<Work>({
         defaultValues: {
+            start: "",
+            end: "",
+            item: "",
+            type: "",
+            comment: "",
             ...work
         }
     })
@@ -33,7 +43,19 @@ function EditForm ({work, clickSave}: {work: Work, clickSave: any }) {
     }
 
     const onSubmit: SubmitHandler<Work> = (data: Work) => {
-        clickSave(recorder.save(data))
+        const updated = recorder.save(data)
+        const newList = workList.map((work)=>{
+            if(work.id===data.id){
+                return updated
+            }else {
+                return work;
+            }
+        })
+        console.log(newList)
+        console.log(workList)
+        clickSave(updated)
+
+        setWorkList(newList)
     }
 
     return (
