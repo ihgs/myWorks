@@ -8,26 +8,28 @@ import WorkCards, { DateInterface } from './components/WorkCards'
 import { useState } from 'react'
 import dayjs from 'dayjs'
 
-
 const today = dayjs()
 
 export default function Home() {
   const container = createContainer()
-  container.register({"recorder": asClass(IndexedDb).singleton()})
+  container.register({ recorder: asClass(IndexedDb).singleton() })
 
-  const [targetDate, setTargetDate] = useState<DateInterface>({year: today.year(), month: today.month()+1, day: today.date()});
+  const [targetDate, setTargetDate] = useState<DateInterface>({
+    year: today.year(),
+    month: today.month() + 1,
+    day: today.date(),
+  })
 
-  const handleDateSlector = (slectedDate: DateInterface) =>{
+  const handleDateSlector = (slectedDate: DateInterface) => {
     setTargetDate(slectedDate)
   }
 
   return (
     <main className={styles.main}>
       <ContainerContext.Provider value={container}>
-          <DateSelector onChange={handleDateSlector}/>
-          <WorkCards {...targetDate} />
+        <DateSelector onChange={handleDateSlector} />
+        <WorkCards {...targetDate} />
       </ContainerContext.Provider>
-
     </main>
   )
 }

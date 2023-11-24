@@ -1,4 +1,4 @@
-import { AwilixContainer } from "awilix";
-import { createContext } from "react";
+import { AwilixContainer } from 'awilix'
+import { createContext } from 'react'
 
-export const ContainerContext = createContext<AwilixContainer|undefined>(undefined)
+export const ContainerContext = createContext<AwilixContainer | undefined>(undefined)
