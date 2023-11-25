@@ -1,12 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { DailyCard } from '@/app/components/DailyCard'
+import { DailyCards } from '@/app/components/DailyCards'
 
 const meta = {
-  title: 'DailyCard',
-  component: DailyCard,
+  title: 'DailyCards',
+  component: DailyCards,
   parameters: {},
   args: {
-    day: 1,
+    year: 2023,
+    month: 11,
     works: [
       {
         id: 1,
@@ -34,7 +35,7 @@ const meta = {
         id: 3,
         year: 2023,
         month: 11,
-        day: 1,
+        day: 2,
         start: '11:00',
         end: '12:00',
         item: 'testCItem',
@@ -45,7 +46,7 @@ const meta = {
         id: 4,
         year: 2023,
         month: 11,
-        day: 1,
+        day: 2,
         start: '12:00',
         end: '13:00',
         item: 'testDItem',
@@ -56,7 +57,7 @@ const meta = {
         id: 5,
         year: 2023,
         month: 11,
-        day: 1,
+        day: 3,
         start: '13:00',
         end: '14:00',
         item: 'testEItem',
@@ -67,7 +68,7 @@ const meta = {
         id: 6,
         year: 2023,
         month: 11,
-        day: 1,
+        day: 10,
         start: '14:00',
         end: '14:30',
         item: 'testFItem',
@@ -77,7 +78,7 @@ const meta = {
     ],
   },
   tags: ['autodoc'],
-} satisfies Meta<typeof DailyCard>
+} satisfies Meta<typeof DailyCards>
 
 export default meta
 type Story = StoryObj<typeof meta>
