@@ -10,7 +10,7 @@
     "format": "prettier --write --ignore-path .gitignore './**/*.{js,jsx,ts,tsx,json}'",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "deploy": "GITHUB_PAGES=true npm run build && gh-pages -d out"
+    "deploy": "GITHUB_PAGES=true npm run build && gh-pages --nojekyll -d out"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",

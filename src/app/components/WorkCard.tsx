@@ -1,6 +1,5 @@
 import { Box, Button, Card, Stack, TextField } from '@mui/material'
 import Grid from '@mui/material/Unstable_Grid2'
-import { InjectionMode, asClass, createContainer } from 'awilix'
 import { useContext, useEffect, useState } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { Recorder } from '../interfaces'

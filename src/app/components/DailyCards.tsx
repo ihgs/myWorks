@@ -2,7 +2,6 @@ import dayjs from 'dayjs'
 import { DailyCard } from './DailyCard'
 import { MonthInterface } from './MonthSelector'
 import { useContext, useEffect, useState } from 'react'
-import { db } from '../libs/db'
 import { ContainerContext } from '../libs/recorder/base'
 import { Recorder } from '../interfaces'
 

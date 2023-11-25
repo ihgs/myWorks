@@ -2,14 +2,12 @@
 import styles from './page.module.css'
 import { asClass, createContainer } from 'awilix'
 import { IndexedDb } from './libs/recorder/indexedDb'
-import WorkCard from './components/WorkCard'
 import { ContainerContext } from './libs/recorder/base'
 import { DateSelector } from './components/DateSelector'
 import WorkCards, { DateInterface } from './components/WorkCards'
 import { useState } from 'react'
 import dayjs from 'dayjs'
 import { useSearchParams } from 'next/navigation'
-import { init } from 'next/dist/compiled/webpack/webpack'
 
 const today = dayjs()
 
