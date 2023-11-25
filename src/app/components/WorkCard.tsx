@@ -37,8 +37,8 @@ function EditForm({ work, clickSave }: { work: Work; clickSave: any }) {
     },
   }
 
-  const onSubmit: SubmitHandler<Work> = (data: Work) => {
-    const updated = recorder.save(data)
+  const onSubmit: SubmitHandler<Work> = async (data: Work) => {
+    const updated = await recorder.save(data)
     const newList = workList.map((work) => {
       if (work.id === data.id) {
         return updated
@@ -46,8 +46,6 @@ function EditForm({ work, clickSave }: { work: Work; clickSave: any }) {
         return work
       }
     })
-    console.log(newList)
-    console.log(workList)
     clickSave(updated)
 
     setWorkList(newList)

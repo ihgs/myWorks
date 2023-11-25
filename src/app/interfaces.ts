@@ -1,6 +1,6 @@
 export interface Recorder {
-  save(work: Work): Work
-  update(work: Work): Work
-  listByDay(year: number, month: number, day: number): Work[]
-  listByMonth(year: number, month: number): Work[]
+  save(work: Work): Promise<Work>
+  update(work: Work): Promise<Work>
+  listByDay(year: number, month: number, day: number): Promise<Work[]>
+  listByMonth(year: number, month: number): Promise<Work[]>
 }

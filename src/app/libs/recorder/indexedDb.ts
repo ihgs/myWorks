@@ -1,17 +1,42 @@
 import { Recorder } from '@/app/interfaces'
+import { db } from '../db'
 
 class IndexedDb implements Recorder {
-  save(work: Work): Work {
-    throw new Error('Method not implemented.')
+  async save(work: Work): Promise<Work> {
+    if(work.id == undefined || work.id <=-1){
+        delete work.id
+        work.version = 1
+        const id =  await db.works.add(work)
+        return {id, ...work}
+        
+    } else {
+        return await this.update(work)
+    }
   }
-  update(work: Work): Work {
-    throw new Error('Method not implemented.')
+
+  async update(work: Work): Promise<Work> {
+    if(work.version == undefined || work.id == undefined){
+        throw new Error('Invalid data')
+    }
+    const current = await db.works.get(work.id)
+    if (current?.version !== work.version){
+        throw new Error('Data is old.')
+    }
+    work.version = work.version + 1
+    await db.works.update(work.id, work)
+    return {...work}
   }
-  listByDay(year: number, month: number, day: number): Work[] {
-    throw new Error('Method not implemented.')
+  
+  async listByDay(year: number, month: number, day: number): Promise<Work[]> {
+    return await db.works.filter((work)=> {
+        return work.year === year && work.month === month && work.day === day
+    }).toArray()
   }
-  listByMonth(year: number, month: number): Work[] {
-    throw new Error('Method not implemented.')
+
+  async listByMonth(year: number, month: number): Promise<Work[]> {
+    return await db.works.filter((work)=> {
+        return work.year === year && work.month === month
+    }).toArray()
   }
 }
 export { IndexedDb }

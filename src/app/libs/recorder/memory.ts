@@ -37,21 +37,21 @@ class MemoryDB implements Recorder {
     },
   ]
 
-  save(work: Work): Work {
+  async save(work: Work): Promise<Work> {
     const n: Work = { ...work }
     n.id = this.inworks.length + 1
     console.log(n)
     this.inworks.push(n)
     return n
   }
-  update(work: Work): Work {
+  async update(work: Work): Promise<Work> {
     const n = { ...work }
     return n
   }
-  listByDay(year: number, month: number, day: number): Work[] {
+  async listByDay(year: number, month: number, day: number): Promise<Work[]> {
     return JSON.parse(JSON.stringify(this.inworks))
   }
-  listByMonth(year: number, month: number): Work[] {
+  async listByMonth(year: number, month: number): Promise<Work[]> {
     return JSON.parse(JSON.stringify(this.inworks))
   }
 }

@@ -3,7 +3,7 @@ import Dexie, { Table } from 'dexie'
 const version = 1
 
 export class MyRecordDexie extends Dexie {
-  works!: Table<Work>
+  works!: Table<Work,number>
 
   constructor() {
     super('myWorks')

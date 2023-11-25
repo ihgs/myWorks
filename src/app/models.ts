@@ -8,5 +8,5 @@ interface Work {
   item?: string
   type?: string
   comment?: string
-  version: number
+  version?: number
 }

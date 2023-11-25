@@ -1,3 +1,4 @@
+'use client'
 import styles from './page.module.css'
 import { asClass, createContainer } from 'awilix'
 import { IndexedDb } from './libs/recorder/indexedDb'
@@ -21,14 +22,14 @@ export default function Home() {
   })
 
   const handleDateSlector = (slectedDate: DateInterface) => {
-    setTargetDate(slectedDate)
+    setTargetDate({...slectedDate})
   }
 
   return (
     <main className={styles.main}>
       <ContainerContext.Provider value={container}>
         <DateSelector onChange={handleDateSlector} />
-        <WorkCards {...targetDate} />
+        <WorkCards date={targetDate} />
       </ContainerContext.Provider>
     </main>
   )
