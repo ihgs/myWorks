@@ -27,11 +27,11 @@ class IndexedDb implements Recorder {
   }
 
   async listByDay(year: number, month: number, day: number): Promise<Work[]> {
-    return await db.works.where({year: year, month: month, day:day}).sortBy("start")
+    return await db.works.where({ year: year, month: month, day: day }).sortBy('start')
   }
 
   async listByMonth(year: number, month: number): Promise<Work[]> {
-    return await db.works.where({year: year, month: month}).sortBy("day")
+    return await db.works.where({ year: year, month: month }).sortBy('day')
   }
 }
 export { IndexedDb }

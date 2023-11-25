@@ -1,35 +1,38 @@
 import { DesktopDatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import dayjs from 'dayjs'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import { DateInterface } from './WorkCards'
 
-interface DateSelectorProps {
+export interface MonthInterface {
+  year: number
+  month: number
+}
+
+export interface MonthSelectorProps {
   year?: number
   month?: number
-  day?: number
-  onChange: (date: DateInterface) => void
+  onChange: (date: MonthInterface) => void
 }
 
 const today = dayjs()
 
-export function DateSelector({
+export function MonthSelector({
   year = today.year(),
   month = today.month() + 1,
-  day = today.date(),
   onChange,
-}: DateSelectorProps) {
+}: MonthSelectorProps) {
   const handleChange = (newValue: any) => {
-    onChange({ year: newValue.year(), month: newValue.month() + 1, day: newValue.date() })
+    onChange({ year: newValue.year(), month: newValue.month() + 1 })
   }
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={'ja'}>
       <DesktopDatePicker
+        openTo='month'
         defaultValue={dayjs()
           .year(year)
-          .month(month - 1)
-          .date(day)}
-        format='YYYY/MM/DD'
+          .month(month - 1)}
+        format='YYYY/MM'
+        views={['year', 'month']}
         onChange={handleChange}
       />
     </LocalizationProvider>
