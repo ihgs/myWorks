@@ -5,12 +5,13 @@ import { RecoilRoot } from 'recoil'
 
 const inter = Inter({ subsets: ['latin'] })
 
-
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang='en'>
       <body className={inter.className}>
-        <RecoilRoot>{children}</RecoilRoot>
+        <div style={{ marginLeft: 50, marginRight: 50 }}>
+          <RecoilRoot>{children}</RecoilRoot>
+        </div>
       </body>
     </html>
   )

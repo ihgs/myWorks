@@ -12,9 +12,9 @@ export interface DateInterface {
   day: number
 }
 
-let idCunter = 0;
+let idCunter = 0
 
-export default function WorkCards({date}:{date: DateInterface}) {
+export default function WorkCards({ date }: { date: DateInterface }) {
   const container = useContext(ContainerContext)
   let recorder: any
   if (container) {
@@ -27,13 +27,12 @@ export default function WorkCards({date}:{date: DateInterface}) {
     setData(await recorder.listByDay(date.year, date.month, date.day))
   }
   useEffect(() => {
-    
     load()
   }, [date])
 
   const add = () => {
     const last = data[data.length - 1]
-    const newWork = { ...date, version: 0, start: last?.end || "", id: --idCunter }
+    const newWork = { ...date, version: 0, start: last?.end || '', id: --idCunter }
     setData(data.concat([newWork]))
   }
 

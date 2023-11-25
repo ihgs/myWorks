@@ -22,7 +22,7 @@ export default function Home() {
   })
 
   const handleDateSlector = (slectedDate: DateInterface) => {
-    setTargetDate({...slectedDate})
+    setTargetDate({ ...slectedDate })
   }
 
   return (

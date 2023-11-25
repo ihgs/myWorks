@@ -1,4 +1,4 @@
-import { Box, Button, Stack, TextField } from '@mui/material'
+import { Box, Button, Card, Stack, TextField } from '@mui/material'
 import Grid from '@mui/material/Unstable_Grid2'
 import { InjectionMode, asClass, createContainer } from 'awilix'
 import { useContext, useEffect, useState } from 'react'
@@ -7,6 +7,10 @@ import { Recorder } from '../interfaces'
 import { ContainerContext } from '../libs/recorder/base'
 import { useRecoilState } from 'recoil'
 import { workListState } from '../libs/atoms/workList-state'
+import Processor from 'asciidoctor'
+import parse from 'html-react-parser'
+
+const processor = Processor()
 
 function EditForm({ work, clickSave }: { work: Work; clickSave: any }) {
   const container = useContext(ContainerContext)
@@ -152,24 +156,28 @@ function Display({ work, clickEdit }: { work: Work; clickEdit: any }) {
         <Grid xs={4}>{work.item} </Grid>
         <Grid xs={4}>{work.type} </Grid>
         <Grid xs={2} spacing={2}>
-          <Button
-            sx={{ m: 1 }}
-            variant='outlined'
-            onClick={() => {
-              setShow(!show)
-            }}
-          >
-            {show ? 'Hidden' : 'Show'}
-          </Button>
-          <Button sx={{ m: 1 }} variant='contained' onClick={() => clickEdit(work)}>
-            Edit
-          </Button>
+          <Box display={'flex'} justifyContent={'flex-end'}>
+            <Button
+              sx={{ m: 1 }}
+              variant='outlined'
+              onClick={() => {
+                setShow(!show)
+              }}
+            >
+              {show ? 'Hidden' : 'Show'}
+            </Button>
+            <Button sx={{ m: 1 }} variant='contained' onClick={() => clickEdit(work)}>
+              Edit
+            </Button>
+          </Box>
         </Grid>
       </Grid>
       {show && (
         <Grid container>
           <Grid xs={12}>
-            <pre>{work.comment}</pre>
+            <Card variant='outlined' sx={{ paddingX: 2 }}>
+              {parse(processor.convert(work.comment ?? '').toString())}
+            </Card>
           </Grid>
         </Grid>
       )}
