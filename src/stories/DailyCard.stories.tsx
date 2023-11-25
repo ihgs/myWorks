@@ -6,6 +6,8 @@ const meta = {
   component: DailyCard,
   parameters: {},
   args: {
+    year: 2023,
+    month: 11,
     day: 1,
     works: [
       {

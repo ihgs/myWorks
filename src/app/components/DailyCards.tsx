@@ -42,7 +42,15 @@ export function DailyCards({ month }: DailyCardsProps) {
   return (
     <>
       {dates.map((dateData, index) => {
-        return <DailyCard key={`${month.year}-${index}`} day={index + 1} works={dateData} />
+        return (
+          <DailyCard
+            key={`${month.year}-${index}`}
+            year={month.year}
+            month={month.month}
+            day={index + 1}
+            works={dateData}
+          />
+        )
       })}
     </>
   )
