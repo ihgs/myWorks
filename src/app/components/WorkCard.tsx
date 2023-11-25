@@ -34,6 +34,10 @@ function EditForm({ work, clickSave }: { work: Work; clickSave: any }) {
   const validationRules = {
     time: {
       required: '時間を入力してください',
+      pattern: {
+        value: /\d\d:\d\d/,
+        message: '00:00 形式で入力してください。'
+      }
     },
     item: {
       required: '項目を入力してください',
