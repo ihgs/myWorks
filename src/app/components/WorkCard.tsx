@@ -144,7 +144,15 @@ function EditForm({ work, clickSave }: { work: Work; clickSave: any }) {
   )
 }
 
-function Display({ work, clickEdit }: { work: Work; clickEdit: any }) {
+function Display({
+  work,
+  clickEdit,
+  onlyDisplay,
+}: {
+  work: Work
+  clickEdit: any
+  onlyDisplay: boolean
+}) {
   const [show, setShow] = useState<boolean>(false)
 
   return (
@@ -166,9 +174,11 @@ function Display({ work, clickEdit }: { work: Work; clickEdit: any }) {
             >
               {show ? 'Hidden' : 'Show'}
             </Button>
-            <Button sx={{ m: 1 }} variant='contained' onClick={() => clickEdit(work)}>
-              Edit
-            </Button>
+            {!onlyDisplay && (
+              <Button sx={{ m: 1 }} variant='contained' onClick={() => clickEdit(work)}>
+                Edit
+              </Button>
+            )}
           </Box>
         </Grid>
       </Grid>
@@ -185,7 +195,15 @@ function Display({ work, clickEdit }: { work: Work; clickEdit: any }) {
   )
 }
 
-export default function WorkCard({ work, edit = false }: { work: Work; edit?: boolean }) {
+export default function WorkCard({
+  work,
+  edit = false,
+  onlyDisplay = false,
+}: {
+  work: Work
+  edit?: boolean
+  onlyDisplay?: boolean
+}) {
   const [data, setData] = useState<Work>(work)
   const [editMode, setEditMode] = useState<boolean>(edit)
 
@@ -204,7 +222,7 @@ export default function WorkCard({ work, edit = false }: { work: Work; edit?: bo
           }}
         />
       ) : (
-        <Display work={data} clickEdit={() => setEditMode(true)} />
+        <Display work={data} clickEdit={() => setEditMode(true)} onlyDisplay={onlyDisplay} />
       )}
     </>
   )
