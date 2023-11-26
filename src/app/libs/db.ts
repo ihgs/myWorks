@@ -1,6 +1,6 @@
 import Dexie, { Table } from 'dexie'
 
-const version = 1
+const version = 2
 
 export class MyRecordDexie extends Dexie {
   works!: Table<Work, number>
@@ -8,7 +8,7 @@ export class MyRecordDexie extends Dexie {
   constructor() {
     super('myWorks')
     this.version(version).stores({
-      works: '++id, year, month',
+      works: '++id, [year+month+day], [year+month]',
     })
   }
 }

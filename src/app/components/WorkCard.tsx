@@ -20,7 +20,7 @@ function EditForm({ work, clickSave }: { work: Work; clickSave: any }) {
   if (container) {
     recorder = container.resolve<Recorder>('recorder')
   }
-  const { control, handleSubmit } = useForm<Work>({
+  const { control, setValue, handleSubmit } = useForm<Work>({
     defaultValues: {
       start: '',
       end: '',
@@ -32,8 +32,14 @@ function EditForm({ work, clickSave }: { work: Work; clickSave: any }) {
   })
 
   const validationRules = {
-    time: {
+    start: {
       required: '時間を入力してください',
+      pattern: {
+        value: /\d\d:\d\d/,
+        message: '00:00 形式で入力してください。',
+      },
+    },
+    end: {
       pattern: {
         value: /\d\d:\d\d/,
         message: '00:00 形式で入力してください。',
@@ -44,7 +50,7 @@ function EditForm({ work, clickSave }: { work: Work; clickSave: any }) {
     },
   }
 
-  const onSubmit: SubmitHandler<Work> = async (data: Work) => {
+  const onSubmit: SubmitHandler<Work> = async (data: Work, event) => {
     const updated = await recorder.save(data)
     const newList = workList.map((work) => {
       if (work.id === data.id) {
@@ -53,8 +59,15 @@ function EditForm({ work, clickSave }: { work: Work; clickSave: any }) {
         return work
       }
     })
-    clickSave(updated)
-
+    // @ts-ignore
+    const buttonName = event?.nativeEvent?.submitter?.name
+    if(buttonName === 'continue'){
+      setValue('id', updated.id)
+      setValue('version', updated.version)
+      clickSave(updated, true)
+    }else {
+      clickSave(updated)
+    }
     setWorkList(newList)
   }
 
@@ -64,7 +77,7 @@ function EditForm({ work, clickSave }: { work: Work; clickSave: any }) {
         <Controller
           name='start'
           control={control}
-          rules={validationRules.time}
+          rules={validationRules.start}
           render={({ field, fieldState }: { field: any; fieldState: any }) => (
             <TextField
               {...field}
@@ -80,7 +93,7 @@ function EditForm({ work, clickSave }: { work: Work; clickSave: any }) {
         <Controller
           name='end'
           control={control}
-          rules={validationRules.time}
+          rules={validationRules.end}
           render={({ field, fieldState }: { field: any; fieldState: any }) => (
             <TextField
               {...field}
@@ -140,9 +153,14 @@ function EditForm({ work, clickSave }: { work: Work; clickSave: any }) {
           />
         )}
       />
-      <Button type='submit' variant='contained' name='save'>
-        Save
-      </Button>
+      <Stack direction={'row'} justifyContent={'flex-end'} spacing={1}>
+        <Button type="submit" variant='contained' name='continue'>
+          途中保存
+        </Button>
+        <Button type='submit' variant='contained' name='save'>
+          Save
+        </Button>
+      </Stack>
     </Stack>
   )
 }
@@ -219,9 +237,9 @@ export default function WorkCard({
       {editMode ? (
         <EditForm
           work={data}
-          clickSave={(data: any) => {
+          clickSave={(data: any, editMode=false) => {
             setData(data)
-            setEditMode(false)
+            setEditMode(editMode)
           }}
         />
       ) : (
