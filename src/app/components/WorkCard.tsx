@@ -1,6 +1,6 @@
 import { Box, Button, Card, Stack, TextField } from '@mui/material'
 import Grid from '@mui/material/Unstable_Grid2'
-import { useContext, useEffect, useState } from 'react'
+import { KeyboardEvent, useContext, useEffect, useState } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { Recorder } from '../interfaces'
 import { ContainerContext } from '../libs/recorder/base'
@@ -8,6 +8,7 @@ import { useRecoilState } from 'recoil'
 import { workListState } from '../libs/atoms/workList-state'
 import Processor from 'asciidoctor'
 import parse from 'html-react-parser'
+import dayjs from 'dayjs'
 
 const processor = Processor()
 
@@ -71,6 +72,29 @@ function EditForm({ work, clickSave }: { work: Work; clickSave: any }) {
     setWorkList(newList)
   }
 
+  const roundQuartor = (min: number) => {
+    if (min < 8) {
+      return [0, 0]
+    } else if (min < 23) {
+      return [0, 15]
+    } else if (min < 38) {
+      return [0, 30]
+    } else if (min < 53) {
+      return [0, 45]
+    } else {
+      return [1, 0]
+    }
+  }
+
+  const enterNearTime = (key: 'start' | 'end', keyEvent: KeyboardEvent) => {
+    if (keyEvent.key === ';' && keyEvent.ctrlKey && keyEvent.shiftKey) {
+      const now = dayjs()
+      const [diffh, roundedMin] = roundQuartor(now.minute())
+      const rounded = now.add(diffh, 'hour').minute(roundedMin)
+      setValue(key, rounded.format('HH:mm'))
+    }
+  }
+
   return (
     <Stack component='form' spacing={1.5} onSubmit={handleSubmit(onSubmit)}>
       <Box>
@@ -87,6 +111,7 @@ function EditForm({ work, clickSave }: { work: Work; clickSave: any }) {
               error={fieldState.invalid}
               helperText={fieldState.error?.message}
               variant='standard'
+              onKeyDown={(event: KeyboardEvent) => enterNearTime('start', event)}
             />
           )}
         />
@@ -103,6 +128,7 @@ function EditForm({ work, clickSave }: { work: Work; clickSave: any }) {
               error={fieldState.invalid}
               helperText={fieldState.error?.message}
               variant='standard'
+              onKeyDown={(event: KeyboardEvent) => enterNearTime('end', event)}
             />
           )}
         />
