@@ -3,7 +3,7 @@ import { db } from '../db'
 
 class IndexedDb implements Recorder {
   async save(orwork: Work): Promise<Work> {
-    const work = {...orwork}
+    const work = { ...orwork }
     if (work.id == undefined || work.id <= -1) {
       delete work.id
       work.version = 1

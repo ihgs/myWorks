@@ -61,11 +61,11 @@ function EditForm({ work, clickSave }: { work: Work; clickSave: any }) {
     })
     // @ts-ignore
     const buttonName = event?.nativeEvent?.submitter?.name
-    if(buttonName === 'continue'){
+    if (buttonName === 'continue') {
       setValue('id', updated.id)
       setValue('version', updated.version)
       clickSave(updated, true)
-    }else {
+    } else {
       clickSave(updated)
     }
     setWorkList(newList)
@@ -154,7 +154,7 @@ function EditForm({ work, clickSave }: { work: Work; clickSave: any }) {
         )}
       />
       <Stack direction={'row'} justifyContent={'flex-end'} spacing={1}>
-        <Button type="submit" variant='contained' name='continue'>
+        <Button type='submit' variant='contained' name='continue'>
           途中保存
         </Button>
         <Button type='submit' variant='contained' name='save'>
@@ -237,7 +237,7 @@ export default function WorkCard({
       {editMode ? (
         <EditForm
           work={data}
-          clickSave={(data: any, editMode=false) => {
+          clickSave={(data: any, editMode = false) => {
             setData(data)
             setEditMode(editMode)
           }}

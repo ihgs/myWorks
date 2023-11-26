@@ -4,6 +4,8 @@ import { MonthInterface } from './MonthSelector'
 import { useContext, useEffect, useState } from 'react'
 import { ContainerContext } from '../libs/recorder/base'
 import { Recorder } from '../interfaces'
+import { stringify } from 'yaml'
+import { Button } from '@mui/material'
 
 export interface DailyCardsProps {
   month: MonthInterface
@@ -38,8 +40,39 @@ export function DailyCards({ month }: DailyCardsProps) {
     initArray()
   }, [month])
 
+  const [copied, setCopied] = useState<string>('')
+  const copy = () => {
+    const yml: any = {}
+    dates.forEach((data, index) => {
+      const dailyDate: any[] = []
+      data.forEach((datum) => {
+        dailyDate.push({
+          s: datum.start,
+          e: datum.end,
+          i: datum.item,
+          t: datum.type,
+          c: datum.comment,
+        })
+      })
+      const key = `_${month.year}_${month.month}_${index + 1}`
+      yml[key] = dailyDate
+    })
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(stringify(yml))
+      setCopied('Copied!!')
+      setTimeout(() => {
+        setCopied('')
+      }, 1500)
+    }
+  }
+
   return (
     <>
+      <Button sx={{ m: 1 }} size='small' variant='outlined' onClick={copy}>
+        Copy
+      </Button>
+      {copied}
+      <div></div>
       {dates.map((dateData, index) => {
         return (
           <DailyCard
