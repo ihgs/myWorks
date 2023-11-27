@@ -87,7 +87,7 @@ function EditForm({ work, clickSave }: { work: Work; clickSave: any }) {
   }
 
   const enterNearTime = (key: 'start' | 'end', keyEvent: KeyboardEvent) => {
-    if (keyEvent.key === ';' && keyEvent.ctrlKey && keyEvent.shiftKey) {
+    if (keyEvent.key === ':' && keyEvent.ctrlKey) {
       const now = dayjs()
       const [diffh, roundedMin] = roundQuartor(now.minute())
       const rounded = now.add(diffh, 'hour').minute(roundedMin)
