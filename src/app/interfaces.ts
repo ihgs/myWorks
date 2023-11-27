@@ -5,4 +5,5 @@ export interface Recorder<T> {
   listByDay(year: number, month: number, day: number): Promise<T[]>
   listByMonth(year: number, month: number): Promise<T[]>
   delete(id: number): Promise<void>
+  listTypes(): Promise<MyType[]>
 }

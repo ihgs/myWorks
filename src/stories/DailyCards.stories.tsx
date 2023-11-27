@@ -7,7 +7,7 @@ import { ContainerContext } from '@/app/libs/recorder/base'
 
 const container = createContainer()
 container.register({ recorder: asClass(MemoryDB).singleton() })
-const recorder = container.resolve<Recorder>('recorder')
+const recorder = container.resolve<Recorder<Work>>('recorder')
 
 const meta = {
   title: 'DailyCards',

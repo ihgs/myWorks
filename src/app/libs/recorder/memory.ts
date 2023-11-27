@@ -1,6 +1,15 @@
 import { Recorder } from '@/app/interfaces'
 
-class MemoryDB implements Recorder {
+class MemoryDB implements Recorder<Work> {
+  list(): Promise<Work[]> {
+    throw new Error('Method not implemented.')
+  }
+  delete(id: number): Promise<void> {
+    throw new Error('Method not implemented.')
+  }
+  listTypes(): Promise<MyType[]> {
+    throw new Error('Method not implemented.')
+  }
   inworks: Work[] = [
     {
       id: 1,

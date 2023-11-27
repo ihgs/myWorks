@@ -42,5 +42,9 @@ class IndexedDb implements Recorder<Work> {
   async delete(id: number): Promise<void> {
     throw new Error('not implemented')
   }
+
+  async listTypes(): Promise<MyType[]> {
+    return await db.types.toArray()
+  }
 }
 export { IndexedDb }

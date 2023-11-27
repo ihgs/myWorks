@@ -1,4 +1,4 @@
-import { Box, Button, Card, Stack, TextField } from '@mui/material'
+import { Autocomplete, Box, Button, Card, Stack, TextField } from '@mui/material'
 import Grid from '@mui/material/Unstable_Grid2'
 import { KeyboardEvent, useContext, useEffect, useState } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
@@ -16,6 +16,7 @@ function EditForm({ work, clickSave }: { work: Work; clickSave: any }) {
   const container = useContext(ContainerContext)
 
   const [workList, setWorkList] = useRecoilState<Work[]>(workListState)
+  const [typeList, setTypeList] = useState<MyType[]>([])
 
   let recorder: any
   if (container) {
@@ -31,6 +32,13 @@ function EditForm({ work, clickSave }: { work: Work; clickSave: any }) {
       ...work,
     },
   })
+
+  useEffect(() => {
+    const loadTypeList = async () => {
+      setTypeList(await recorder.listTypes())
+    }
+    loadTypeList()
+  }, [])
 
   const validationRules = {
     start: {
@@ -152,15 +160,40 @@ function EditForm({ work, clickSave }: { work: Work; clickSave: any }) {
           name='type'
           control={control}
           render={({ field, fieldState }: { field: any; fieldState: any }) => (
-            <TextField
+            <Autocomplete
               {...field}
-              sx={{ mr: 1 }}
-              type='type'
-              label='type'
-              error={fieldState.invalid}
-              helperText={fieldState.error?.message}
-              variant='standard'
+              name={field.name}
+              ref={field.ref}
+              value={field.value}
+              sx={{ mr: 1, width: 300 }}
+              freeSolo
+              options={typeList.map((option) => option.name)}
+              onInputChange={(e, newValue) => {
+                setValue('type', newValue)
+              }}
+              renderInput={(params) => {
+                return (
+                  <TextField
+                    {...params}
+                    type='type'
+                    label='type'
+                    error={fieldState.invalid}
+                    helperText={fieldState.error?.message}
+                    variant='standard'
+                    autoComplete='off'
+                  />
+                )
+              }}
             />
+            // <TextField
+            //   {...field}
+            //   sx={{ mr: 1 }}
+            //   type='type'
+            //   label='type'
+            //   error={fieldState.invalid}
+            //   helperText={fieldState.error?.message}
+            //   variant='standard'
+            // />
           )}
         />
       </Box>

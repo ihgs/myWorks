@@ -30,5 +30,9 @@ class TypeDb implements Recorder<MyType> {
   async delete(id: number): Promise<void> {
     await db.types.delete(id)
   }
+
+  async listTypes(): Promise<MyType[]> {
+    return await db.types.toArray()
+  }
 }
 export { TypeDb }
