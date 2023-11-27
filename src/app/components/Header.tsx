@@ -13,6 +13,11 @@ export function Header() {
     router.push('/month')
   }
 
+  const handleType = (e: any) => {
+    e.preventDefault()
+    router.push('/type')
+  }
+
   return (
     <AppBar position='static'>
       <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
@@ -21,6 +26,9 @@ export function Header() {
         </Button>
         <Button onClick={handleMonth} sx={{ my: 2, color: 'white', display: 'block' }}>
           Month
+        </Button>
+        <Button onClick={handleType} sx={{ my: 2, color: 'white', display: 'block' }}>
+          Type
         </Button>
       </Box>
     </AppBar>

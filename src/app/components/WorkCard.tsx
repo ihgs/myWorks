@@ -19,7 +19,7 @@ function EditForm({ work, clickSave }: { work: Work; clickSave: any }) {
 
   let recorder: any
   if (container) {
-    recorder = container.resolve<Recorder>('recorder')
+    recorder = container.resolve<Recorder<Work>>('recorder')
   }
   const { control, setValue, handleSubmit } = useForm<Work>({
     defaultValues: {

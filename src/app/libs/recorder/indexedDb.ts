@@ -1,7 +1,7 @@
 import { Recorder } from '@/app/interfaces'
 import { db } from '../db'
 
-class IndexedDb implements Recorder {
+class IndexedDb implements Recorder<Work> {
   async save(orwork: Work): Promise<Work> {
     const work = { ...orwork }
     if (work.id == undefined || work.id <= -1) {
@@ -27,12 +27,20 @@ class IndexedDb implements Recorder {
     return { ...work }
   }
 
+  async list(): Promise<Work[]> {
+    throw new Error('not implemented')
+  }
+
   async listByDay(year: number, month: number, day: number): Promise<Work[]> {
     return await db.works.where({ year: year, month: month, day: day }).sortBy('start')
   }
 
   async listByMonth(year: number, month: number): Promise<Work[]> {
     return await db.works.where({ year: year, month: month }).sortBy('day')
+  }
+
+  async delete(id: number): Promise<void> {
+    throw new Error('not implemented')
   }
 }
 export { IndexedDb }

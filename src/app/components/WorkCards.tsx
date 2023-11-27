@@ -19,7 +19,7 @@ export default function WorkCards({ date }: { date: DateInterface }) {
   const container = useContext(ContainerContext)
   let recorder: any
   if (container) {
-    recorder = container.resolve<Recorder>('recorder')
+    recorder = container.resolve<Recorder<Work>>('recorder')
   }
 
   const [data, setData] = useRecoilState<Work[]>(workListState)

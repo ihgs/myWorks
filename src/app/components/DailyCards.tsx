@@ -16,7 +16,7 @@ export function DailyCards({ month }: DailyCardsProps) {
   const [dates, setDates] = useState<Work[][]>([])
   let recorder: any
   if (container) {
-    recorder = container.resolve<Recorder>('recorder')
+    recorder = container.resolve<Recorder<Work>>('recorder')
   }
   useEffect(() => {
     const initArray = async () => {

@@ -10,3 +10,9 @@ interface Work {
   comment?: string
   version?: number
 }
+
+interface MyType {
+  id?: number
+  name: string
+  code?: string
+}
