@@ -9,6 +9,7 @@ const meta = {
     year: 2023,
     month: 11,
     day: 1,
+    offset: 0,
     works: [
       {
         id: 1,
@@ -84,4 +85,6 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const Default: Story = {}
+export const Default: Story = {
+
+}

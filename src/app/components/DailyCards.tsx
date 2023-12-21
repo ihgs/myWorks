@@ -66,6 +66,8 @@ export function DailyCards({ month }: DailyCardsProps) {
     }
   }
 
+  const offset = new Date(month.year, month.month - 1, 1).getDay()
+
   return (
     <>
       <Button sx={{ m: 1 }} size='small' variant='outlined' onClick={copy}>
@@ -81,6 +83,7 @@ export function DailyCards({ month }: DailyCardsProps) {
             month={month.month}
             day={index + 1}
             works={dateData}
+            offset={offset}
           />
         )
       })}

@@ -168,10 +168,10 @@ function EditForm({ work, clickSave }: { work: Work; clickSave: any }) {
               sx={{ mr: 1, width: 300 }}
               freeSolo
               options={typeList.map((option) => option.name)}
-              getOptionLabel={(option) => option || ""}
+              getOptionLabel={(option) => option || ''}
               onChange={(e, newValue) => {
-                if(newValue){
-                  setValue('type', newValue as string)  
+                if (newValue) {
+                  setValue('type', newValue as string)
                 }
               }}
               renderInput={(params) => {
