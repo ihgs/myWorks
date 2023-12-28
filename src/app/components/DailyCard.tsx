@@ -1,9 +1,10 @@
-import { Box, Button, Card, Divider } from '@mui/material'
+import { Box, Button, Card, Divider, Typography } from '@mui/material'
 import Grid from '@mui/material/Unstable_Grid2'
 import { ReactNode, useState } from 'react'
 import WorkCard from './WorkCard'
 import { useRouter } from 'next/navigation'
 import { off } from 'process'
+import { red } from '@mui/material/colors'
 
 const dayOfWeek = ['(日)', '(月)', '(火)', '(水)', '(木)', '(金)', '(土)']
 
@@ -96,6 +97,22 @@ export function DailyCard({ year, month, day, offset, works }: DailyCardProps) {
     )
     return workList
   }
+  
+  const renderSum = (sum: number)=>{
+    let color = "black";
+    if (sum == 0){
+      color = "gray"
+    }else if (sum > 0 && sum < 6){
+      color = "red"
+    } else if (sum < 8) {
+      color = "#F8B500"
+    }
+    return (
+      <Typography sx={{color}}>
+        {sumH} H
+      </Typography>
+      )
+  }
 
   let sum = 0
   works.forEach((work: Work) => {
@@ -106,7 +123,7 @@ export function DailyCard({ year, month, day, offset, works }: DailyCardProps) {
   })
   const sumH = sum / 60.0
 
-  console.log(offset)
+
 
   return (
     <>
@@ -114,7 +131,9 @@ export function DailyCard({ year, month, day, offset, works }: DailyCardProps) {
         <Grid xs={2}>
           {day} {whichDayOfWeek(day, offset)}
         </Grid>
-        <Grid xs={8}>{sumH} H</Grid>
+        <Grid xs={8}>
+          {renderSum(sumH)}
+        </Grid>
         <Grid xs={2} spacing={2}>
           <Box display={'flex'} justifyContent={'flex-end'}>
             {sumH > 0 && (
