@@ -34,7 +34,11 @@ export default function WorkCards({ date }: { date: DateInterface }) {
 
   const add = () => {
     const last = data[data.length - 1]
-    const newWork = { ...date, version: 0, start: last?.end || '', id: --idCunter }
+    let nextStart = last?.end || ''
+    if (nextStart == '12:00') {
+      nextStart = '13:00'
+    }
+    const newWork = { ...date, version: 0, start: nextStart, id: --idCunter }
     setData(data.concat([newWork]))
   }
 

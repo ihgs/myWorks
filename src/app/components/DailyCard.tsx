@@ -83,7 +83,7 @@ export function DailyCard({ year, month, day, offset, works }: DailyCardProps) {
       workList.push(
         <Grid container alignItems={'center'} columnSpacing={1} sx={{ wordWrap: 'break-word' }}>
           <Grid xs={2}>{displayKey}</Grid>
-          <Grid xs={2}>{rate}</Grid>
+          <Grid xs={2}>{rate}% / {value.sum} min</Grid>
         </Grid>,
       )
       total = total + rate
@@ -164,9 +164,7 @@ export function DailyCard({ year, month, day, offset, works }: DailyCardProps) {
               sx={{ m: 1 }}
               variant='outlined'
               size={'small'}
-              onClick={() => {
-                router.push(`/?year=${year}&month=${month}&day=${day}`)
-              }}
+              href={`/?year=${year}&month=${month}&day=${day}`}
             >
               Go
             </Button>
