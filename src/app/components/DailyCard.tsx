@@ -3,10 +3,10 @@ import Grid from '@mui/material/Unstable_Grid2'
 import { ReactNode, useState } from 'react'
 import WorkCard from './WorkCard'
 import { useRouter } from 'next/navigation'
-import { off } from 'process'
-import { red } from '@mui/material/colors'
 
 const dayOfWeek = ['(日)', '(月)', '(火)', '(水)', '(木)', '(金)', '(土)']
+
+const assetPrefix = process.env.NEXT_PUBLIC_ASSET_PREFIX
 
 const whichDayOfWeek = (day: number, offset: number) => {
   return dayOfWeek[(day + offset - 1) % 7]
@@ -54,7 +54,6 @@ const putMap = (work: Work, map: Map<string, RateOfWork>) => {
     const start = parseMin(work.start)
     rateOfWork.sum = rateOfWork.sum + end - start
     rateOfWork.works.push(work)
-    console.log(map)
   }
 }
 export function DailyCard({ year, month, day, offset, works }: DailyCardProps) {
@@ -164,7 +163,7 @@ export function DailyCard({ year, month, day, offset, works }: DailyCardProps) {
               sx={{ m: 1 }}
               variant='outlined'
               size={'small'}
-              href={`/?year=${year}&month=${month}&day=${day}`}
+              href={`${assetPrefix}/?year=${year}&month=${month}&day=${day}`}
             >
               Go
             </Button>
