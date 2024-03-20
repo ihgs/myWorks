@@ -20,7 +20,7 @@ export function Header() {
 
   return (
     <AppBar position='static'>
-      <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+      <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'flex' } }}>
         <Button onClick={handleDay} sx={{ my: 2, color: 'white', display: 'block' }}>
           Home
         </Button>
