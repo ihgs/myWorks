@@ -4,19 +4,14 @@ import { asClass, createContainer } from 'awilix'
 import { IndexedDb } from './libs/recorder/indexedDb'
 import { ContainerContext } from './libs/recorder/base'
 import { DateSelector } from './components/DateSelector'
-import WorkCards, { DateInterface } from './components/WorkCards'
+import WorkCards from './components/WorkCards'
 import { useState } from 'react'
 import dayjs from 'dayjs'
 import { useSearchParams } from 'next/navigation'
+import { DateInterface } from './types'
+import { myParseInt } from './libs/utils'
 
 const today = dayjs()
-
-const myParseInt = (value: string | null, defaultValue: number) => {
-  if (value == null) {
-    return defaultValue
-  }
-  return parseInt(value) || defaultValue
-}
 
 export default function Home() {
   const searchParams = useSearchParams()

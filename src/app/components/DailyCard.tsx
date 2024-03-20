@@ -3,6 +3,7 @@ import Grid from '@mui/material/Unstable_Grid2'
 import { ReactNode, useState } from 'react'
 import WorkCard from './WorkCard'
 import { useRouter } from 'next/navigation'
+import { parseMin } from '../libs/utils'
 
 const dayOfWeek = ['(日)', '(月)', '(火)', '(水)', '(木)', '(金)', '(土)']
 
@@ -17,19 +18,6 @@ interface DailyCardProps {
   day: number
   offset: number
   works: Work[]
-}
-
-const parseMin = (hhmm?: string): number => {
-  if (!hhmm) {
-    return 0
-  }
-  const match = hhmm.match(/(\d+):(\d+)/)
-  if (match) {
-    const hour = match[1]
-    const min = match[2]
-    return parseInt(hour) * 60 + parseInt(min)
-  }
-  return 0
 }
 
 interface RateOfWork {

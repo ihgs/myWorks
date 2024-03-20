@@ -6,10 +6,9 @@ import { ContainerContext } from '../libs/recorder/base'
 import { Recorder } from '../interfaces'
 import { stringify } from 'yaml'
 import { Button } from '@mui/material'
+import { DailyCardsProps } from '../types'
 
-export interface DailyCardsProps {
-  month: MonthInterface
-}
+
 
 export function DailyCards({ month }: DailyCardsProps) {
   const container = useContext(ContainerContext)

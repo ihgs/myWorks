@@ -6,12 +6,8 @@ import { workListState } from '../libs/atoms/workList-state'
 import { ContainerContext } from '../libs/recorder/base'
 import { Recorder } from '../interfaces'
 import { stringify } from 'yaml'
-
-export interface DateInterface {
-  year: number
-  month: number
-  day: number
-}
+import { DailyCard } from './DailyCard'
+import { DateInterface } from '../types'
 
 let idCunter = 0
 

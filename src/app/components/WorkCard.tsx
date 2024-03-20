@@ -9,6 +9,7 @@ import { workListState } from '../libs/atoms/workList-state'
 import Processor from 'asciidoctor'
 import parse from 'html-react-parser'
 import dayjs from 'dayjs'
+import { roundQuartor } from '../libs/utils'
 
 const processor = Processor()
 
@@ -78,20 +79,6 @@ function EditForm({ work, clickSave }: { work: Work; clickSave: any }) {
       clickSave(updated)
     }
     setWorkList(newList)
-  }
-
-  const roundQuartor = (min: number) => {
-    if (min < 8) {
-      return [0, 0]
-    } else if (min < 23) {
-      return [0, 15]
-    } else if (min < 38) {
-      return [0, 30]
-    } else if (min < 53) {
-      return [0, 45]
-    } else {
-      return [1, 0]
-    }
   }
 
   const enterNearTime = (key: 'start' | 'end', keyEvent: KeyboardEvent) => {

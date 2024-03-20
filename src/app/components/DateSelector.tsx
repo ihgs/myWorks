@@ -1,7 +1,7 @@
 import { DesktopDatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import dayjs from 'dayjs'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import { DateInterface } from './WorkCards'
+import { DateInterface } from '../types'
 
 interface DateSelectorProps {
   year?: number
