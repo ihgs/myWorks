@@ -1,6 +1,5 @@
 import dayjs from 'dayjs'
 import { DailyCard } from './DailyCard'
-import { MonthInterface } from './MonthSelector'
 import { useContext, useEffect, useState } from 'react'
 import { ContainerContext } from '../libs/recorder/base'
 import { Recorder } from '../interfaces'
@@ -10,7 +9,7 @@ import { DailyCardsProps } from '../types'
 
 
 
-export function DailyCards({ month }: DailyCardsProps) {
+export function DailyCards({ month }: Readonly<DailyCardsProps>) {
   const container = useContext(ContainerContext)
   const [dates, setDates] = useState<Work[][]>([])
   let recorder: any

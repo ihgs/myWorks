@@ -44,10 +44,9 @@ const putMap = (work: Work, map: Map<string, RateOfWork>) => {
     rateOfWork.works.push(work)
   }
 }
-export function DailyCard({ year, month, day, offset, works }: DailyCardProps) {
+export function DailyCard({ year, month, day, offset, works }: Readonly<DailyCardProps>) {
   const [show, setShow] = useState<boolean>(false)
   const [showRate, setShowRate] = useState<boolean>(false)
-  const router = useRouter()
   const rateMap = new Map<string, RateOfWork>()
 
   const renderWorks = () => {
