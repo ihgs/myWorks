@@ -2,7 +2,6 @@ import { Box, Button, Card, Divider, Typography } from '@mui/material'
 import Grid from '@mui/material/Unstable_Grid2'
 import { ReactNode, useState } from 'react'
 import WorkCard from './WorkCard'
-import { useRouter } from 'next/navigation'
 import { parseMin } from '../libs/utils'
 
 const dayOfWeek = ['(日)', '(月)', '(火)', '(水)', '(木)', '(金)', '(土)']
