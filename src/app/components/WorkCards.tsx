@@ -1,6 +1,6 @@
-import { Button } from '@mui/material'
+import { Box, Button, Stack } from '@mui/material'
 import WorkCard from '@/app/components/WorkCard'
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useMemo, useState } from 'react'
 import { useRecoilState } from 'recoil'
 import { workListState } from '../libs/atoms/workList-state'
 import { ContainerContext } from '../libs/recorder/base'
@@ -8,6 +8,15 @@ import { Recorder } from '../interfaces'
 import { stringify } from 'yaml'
 import { DailyCard } from './DailyCard'
 import { DateInterface } from '../types'
+import { parseMin } from '../libs/utils'
+
+const formatMin = (min: number) => {
+  const h = Math.floor(min / 60)
+  const m = min % 60
+  return `${h}h${m.toString().padStart(2, '0')}m`
+}
+
+const UNCATEGORIZED = '(未分類)'
 
 let idCunter = 0
 
@@ -38,6 +47,31 @@ export default function WorkCards({ date }: { date: DateInterface }) {
     setData(data.concat([newWork]))
   }
 
+  const { totalMin, breakdown } = useMemo(() => {
+    const perType = new Map<string, number>()
+    let total = 0
+    data.forEach((datum) => {
+      if (!datum.start || !datum.end) {
+        return
+      }
+      const duration = parseMin(datum.end) - parseMin(datum.start)
+      if (duration <= 0) {
+        return
+      }
+      const key = datum.type || UNCATEGORIZED
+      perType.set(key, (perType.get(key) ?? 0) + duration)
+      total += duration
+    })
+    const items = Array.from(perType.entries())
+      .map(([type, min]) => ({
+        type,
+        min,
+        percent: total > 0 ? (min / total) * 100 : 0,
+      }))
+      .sort((a, b) => b.min - a.min)
+    return { totalMin: total, breakdown: items }
+  }, [data])
+
   const copy = () => {
     const yml: any[] = []
     data.forEach((datum) => {
@@ -63,7 +97,23 @@ export default function WorkCards({ date }: { date: DateInterface }) {
         Copy
       </Button>
       {copied}
-      <div></div>
+      <Box sx={{ mx: 1, my: 1, p: 1, border: '1px solid #ddd', borderRadius: 1 }}>
+        <Box sx={{ fontWeight: 'bold', mb: 0.5 }}>合計: {formatMin(totalMin)}</Box>
+        {breakdown.length === 0 ? (
+          <Box sx={{ color: 'text.secondary' }}>記録なし</Box>
+        ) : (
+          <Stack spacing={0.25}>
+            {breakdown.map(({ type, min, percent }) => (
+              <Box key={type} sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                <span>{type}</span>
+                <span>
+                  {formatMin(min)} ({percent.toFixed(1)}%)
+                </span>
+              </Box>
+            ))}
+          </Stack>
+        )}
+      </Box>
       {data.map((datum) => {
         return (
           <WorkCard
