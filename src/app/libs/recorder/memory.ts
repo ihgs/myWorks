@@ -1,14 +1,14 @@
 import { Recorder } from '@/app/interfaces'
 
 class MemoryDB implements Recorder<Work> {
-  list(): Promise<Work[]> {
-    throw new Error('Method not implemented.')
+  async list(): Promise<Work[]> {
+    return JSON.parse(JSON.stringify(this.inworks))
   }
-  delete(id: number): Promise<void> {
-    throw new Error('Method not implemented.')
+  async delete(_id: number): Promise<void> {
+    // no-op for the in-memory demo recorder
   }
-  listTypes(): Promise<MyType[]> {
-    throw new Error('Method not implemented.')
+  async listTypes(): Promise<MyType[]> {
+    return []
   }
   inworks: Work[] = [
     {

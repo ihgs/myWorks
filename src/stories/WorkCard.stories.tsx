@@ -85,7 +85,7 @@ export const Save: Story = {
     await userEvent.type(canvas.getByLabelText('type'), '打ち合わせ')
     await userEvent.type(canvas.getByLabelText('comment'), '打ち合わせ')
 
-    await userEvent.click(canvas.getByRole('button'))
+    await userEvent.click(canvas.getByRole('button', { name: 'Save' }))
 
     await waitFor(async () => {
       await expect(canvas.getByText('11:00 ~ 12:00')).toBeInTheDocument()

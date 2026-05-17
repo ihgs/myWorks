@@ -85,6 +85,15 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const Default: Story = {
+export const Default: Story = {}
 
+export const Empty: Story = {
+  args: {
+    year: 2023,
+    month: 11,
+    day: 5,
+    offset: 0,
+    works: [],
+  },
 }
+

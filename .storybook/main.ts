@@ -15,6 +15,7 @@ const config: StorybookConfig = {
     '@storybook/addon-themes',
     '@storybook/addon-coverage',
     '@storybook/addon-docs',
+    '@storybook/addon-vitest'
   ],
 
   framework: {
