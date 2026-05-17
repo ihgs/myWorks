@@ -8,6 +8,11 @@ export function Header() {
     router.push('/')
   }
 
+  const handleWeek = (e: any) => {
+    e.preventDefault()
+    router.push('/week')
+  }
+
   const handleMonth = (e: any) => {
     e.preventDefault()
     router.push('/month')
@@ -23,6 +28,9 @@ export function Header() {
       <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'flex' } }}>
         <Button onClick={handleDay} sx={{ my: 2, color: 'white', display: 'block' }}>
           Home
+        </Button>
+        <Button onClick={handleWeek} sx={{ my: 2, color: 'white', display: 'block' }}>
+          Week
         </Button>
         <Button onClick={handleMonth} sx={{ my: 2, color: 'white', display: 'block' }}>
           Month
