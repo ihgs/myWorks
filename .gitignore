@@ -13,6 +13,10 @@
 /.next/
 /out/
 
+# storybook
+/storybook-static/
+debug-storybook.log
+
 # production
 /build
 
