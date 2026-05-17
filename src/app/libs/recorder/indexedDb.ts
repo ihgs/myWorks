@@ -40,7 +40,7 @@ class IndexedDb implements Recorder<Work> {
   }
 
   async delete(id: number): Promise<void> {
-    throw new Error('not implemented')
+    await db.works.delete(id)
   }
 
   async listTypes(): Promise<MyType[]> {
