@@ -1,5 +1,5 @@
 import { MonthSelector } from '@/app/components/MonthSelector'
-import { Meta, StoryObj } from '@storybook/react'
+import { Meta, StoryObj } from '@storybook/nextjs-vite'
 
 const meta = {
   title: 'MonthSelector',

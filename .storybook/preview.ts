@@ -1,4 +1,4 @@
-import type { Preview } from '@storybook/react'
+import type { Preview } from '@storybook/nextjs-vite'
 import { CssBaseline, ThemeProvider } from '@mui/material'
 import { withThemeFromJSXProvider } from '@storybook/addon-themes'
 import { darkMode, lightMode } from '../src/app/themes'

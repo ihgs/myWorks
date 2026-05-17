@@ -1,29 +1,35 @@
-import type { StorybookConfig } from '@storybook/nextjs'
-import path from 'path'
+import { fileURLToPath } from 'node:url'
+import type { StorybookConfig } from '@storybook/nextjs-vite'
+import path, { dirname } from 'path'
+import { mergeConfig } from 'vite'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
 const config: StorybookConfig = {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
+
   addons: [
     '@storybook/addon-links',
-    '@storybook/addon-essentials',
     '@storybook/addon-onboarding',
-    '@storybook/addon-interactions',
     '@storybook/addon-themes',
     '@storybook/addon-coverage',
+    '@storybook/addon-docs',
   ],
+
   framework: {
-    name: '@storybook/nextjs',
+    name: '@storybook/nextjs-vite',
     options: {},
   },
-  docs: {
-    autodocs: 'tag',
-  },
-  webpackFinal: async (baseConfig: any) => {
-    baseConfig.resolve.alias = {
-      ...baseConfig.resolve.alias,
-      '@': path.resolve(__dirname, '../src'),
-    }
-    return baseConfig
+
+  viteFinal: async (baseConfig) => {
+    return mergeConfig(baseConfig, {
+      resolve: {
+        alias: {
+          '@': path.resolve(__dirname, '../src'),
+        },
+      },
+    })
   },
 }
 export default config

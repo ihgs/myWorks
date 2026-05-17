@@ -1,6 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react'
-import { within, userEvent, waitFor } from '@storybook/testing-library'
-import { expect } from '@storybook/jest'
+import type { Meta, StoryObj } from '@storybook/nextjs-vite'
+import { within, userEvent, waitFor, expect } from 'storybook/test'
 import WorkCard from '@/app/components/WorkCard'
 import { asClass, createContainer } from 'awilix'
 import { MemoryDB } from '@/app/libs/recorder/memory'

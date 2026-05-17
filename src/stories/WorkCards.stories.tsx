@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/nextjs-vite'
 import WorkCards from '@/app/components/WorkCards'
 import { asClass, createContainer } from 'awilix'
 import { MemoryDB } from '@/app/libs/recorder/memory'

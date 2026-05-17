@@ -1,5 +1,5 @@
 import { DateSelector } from '@/app/components/DateSelector'
-import { Meta, StoryObj } from '@storybook/react'
+import { Meta, StoryObj } from '@storybook/nextjs-vite'
 
 const meta = {
   title: 'DateSelector',
